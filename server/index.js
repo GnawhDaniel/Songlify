@@ -12,7 +12,7 @@ dotenv.config()
 var spotify_client_id = process.env.SPOTIFY_CLIENT_ID
 var spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
 
-var spotify_redirect_uri = 'http://localhost:5000/auth/callback' 
+var spotify_redirect_uri = 'http://localhost:5000/auth/callback'
 var website_redirect_uri = "http://localhost:3000" // to website
 
 var generateRandomString = function (length) {
@@ -45,8 +45,6 @@ app.get('/auth/login', (req, res) => {
 })
 
 app.get('/auth/callback', (req, res) => {
-    console.log('callback');
-
     var code = req.query.code;
 
     var authOptions = {
@@ -66,7 +64,7 @@ app.get('/auth/callback', (req, res) => {
     request.post(authOptions, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             access_token = body.access_token;
-            res.redirect(website_redirect_uri)
+            // res.redirect(website_redirect_uri)
         }
         else {
             console.log("Debug");
@@ -77,9 +75,39 @@ app.get('/auth/callback', (req, res) => {
 
 })
 
-app.get('/auth/token', (req, res) => {
-    res.json({ access_token: access_token })
+app.get('/auth/getPlaylists', (req, res) => {
+    let name = req.query.name
+
+    let encodedName = encodeURIComponent(name);
+    let spotifyURL = `https://api.spotify.com/v1/search?q=${encodedName}&type=playlist&limit=50&offset=0`;
+
+
+    fetch(spotifyURL, {
+        method: "GET",
+        headers: {
+            'Authorization': `Bearer ${global.access_token}`, // Authorization header
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Process and send back the data
+            console.log("200: Returned Playlists")
+            res.json(data);
+        })
+        .catch(error => {
+            // Handle any errors
+            if (error.status === 401) {
+                // Bad Token
+                // TODO: Refresh token
+            }
+            res.status(500).json({ error: error.message });
+        });
 })
+
+// app.get('/auth/token', (req, res) => {
+//     res.json({ access_token: access_token })
+// })
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
