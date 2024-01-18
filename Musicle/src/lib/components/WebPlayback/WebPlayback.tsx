@@ -8,7 +8,7 @@ const track = {
     artists: [{ name: "" }],
 };
 
-function WebPlayback(props) {
+function WebPlayback(props: any) {
     const body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:5qTwTJu5yGjomZF68WgCmP"]};
 
     
