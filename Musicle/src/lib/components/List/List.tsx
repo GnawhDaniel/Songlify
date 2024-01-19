@@ -8,6 +8,9 @@ interface Iprops {
 function List(props: Iprops) {
     let items = props.val
     console.log(items)
+    if (items.length === 0) {
+        return (<div>Type in a Spotify playlist or link</div>)
+    }
 
     return (
         <>
