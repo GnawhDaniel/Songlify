@@ -30,16 +30,19 @@ function Search() {
 
     return (
         <>
-            <div className="Search">
-                <input
-                    onChange={handleInputChange}
-                    className="form-control mr-sm-2 input-large"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                />
+            <div className="search">
+                <div className="search-bar">
+                    <h1>SonGuess</h1>
+                    <input
+                        onChange={handleInputChange}
+                        className="form-control mr-sm-2 input-large"
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                    />
+                </div>
+                <List val={playlists}/>
             </div>
-            <List val={playlists}/>
         </>
     );
 }
