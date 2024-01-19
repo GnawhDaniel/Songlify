@@ -5,6 +5,7 @@ img {
 }
 
 .row a {
+    /* This is technically <Link> */
     padding-left: 0px;
     display: flex;
 

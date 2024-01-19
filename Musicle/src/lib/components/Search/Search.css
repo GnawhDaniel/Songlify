@@ -3,3 +3,16 @@
     margin: auto;
     margin-bottom: 25px;
 }
+
+.search {
+    /* margin-top: 75px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 100px auto;
+}
+
+.search {
+    text-align: center;
+}
