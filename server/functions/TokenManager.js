@@ -11,6 +11,7 @@ class TokenManager {
 
     setAccessToken(token) {
         this.expirationTime = Date.now() + (1 * 60 * 60 * 1000)
+        // this.expirationTime = Date.now() + (1 * 1000)
         this.accessToken = token;
     }
 
@@ -38,7 +39,7 @@ class TokenManager {
         request.post(authOptions, (error, response, body) => {
             if (!error && response.statusCode === 200) {
                 this.setAccessToken(body.access_token);
-                console.log("Access token updated");
+                console.log("Access token updated: ", this.accessToken);
             } else {
                 // Handle errors or unsuccessful token retrieval
                 console.error("Failed to retrieve token", error);
@@ -48,14 +49,6 @@ class TokenManager {
 
     // Function to check and refresh token if necessary
     refreshTokenIfNeeded() {
-        // Logic to determine if the token needs to be refreshed
-        // This could be based on time, error response, etc.
-        // For example:
-        // if (this.accessToken is expired) {
-        //     this.retrieveNewToken();
-        // }
-
-        // For simplicity, this example just retrieves a new token
         this.retrieveNewToken();
     }
 }

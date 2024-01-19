@@ -46,7 +46,38 @@ app.get('/auth/getPlaylists', (req, res) => {
             if (error.status === 401) {
                 console.log("Retrying due to error, attempting to refresh token")
 
-            }     
+            }
+        });
+})
+
+app.get("/auth/getTracks", (req, res) => {
+    // Check if token needs to refreshed
+    if (token.isTokenExpired()) {
+        token.retrieveNewToken();
+    }
+
+    // TODO: randomly pull songs
+
+
+    let name = req.query.name;
+    let encodedName = encodeURIComponent(name);
+    let spotifyURL = `https://api.spotify.com/v1/playlists/${encodedName}/tracks?limit=100`;
+    fetch(spotifyURL, {
+        method: "GET",
+        headers: {
+            'Authorization': `Bearer ${token.getAccessToken()}`,
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Process and send back the data
+            console.log("200: Returned Tracks")
+            res.json(data);
+        })
+        .catch(error => {
+            // Handle any errors
+            console.log("error: ", error.status)
         });
 })
 
