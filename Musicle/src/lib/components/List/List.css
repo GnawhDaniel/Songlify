@@ -1,0 +1,45 @@
+img {
+    width: 16.5%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.row a {
+    padding-left: 0px;
+    display: flex;
+
+    padding-left: 0;
+    /* margin: 0 0 10px 0; */
+
+    text-align: left;
+    background-color: lightgray;
+    border-radius: 10px;
+
+    color: black;
+    text-decoration: none;
+    height: 100px;
+    
+}
+
+.row {
+    text-align: left;
+    margin: 0px 5px 5px 5px;
+}
+
+.playlist {
+    width: 35vw;
+    height: 50vh;
+
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+}
+
+.playlist::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+
+.inner-row {
+    margin-left: 20px;
+    font-size: 15px
+}
