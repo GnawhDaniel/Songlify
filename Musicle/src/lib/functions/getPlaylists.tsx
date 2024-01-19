@@ -21,7 +21,7 @@ export async function getPlaylists(query: string) {
                 name: data[i]["name"],
                 image: data[i]["images"][0]["url"],
                 owner: data[i]["owner"]["display_name"],
-                uri: data[i]["uri"]
+                id: data[i]["id"],
             })
         }
     } catch (error) {
