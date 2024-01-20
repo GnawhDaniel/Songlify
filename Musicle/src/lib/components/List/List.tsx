@@ -20,7 +20,7 @@ function List(props: Iprops) {
             <div className="playlist overflow-auto ">
                 {items.map((item, index) => (
                     <div className="row " key={index}>
-                        <Link to={`/playlist/${item.name}`} state={{"playlist": item}}>
+                        <Link to={`/playlist/${item.name}`} state={{"playlist": item, "randomNumber": Math.random()}}>
                             <img src={item.image} alt="" />
                             <div className="inner-row">
                                 <div className="name fs-5">{item.name}</div>
