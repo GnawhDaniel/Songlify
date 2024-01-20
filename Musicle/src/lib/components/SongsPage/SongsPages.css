@@ -72,6 +72,32 @@
     background-color: lightblue;
 }
 
+
+.actions {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    /* align-items: center; */
+    width: 100%;
+}
+
+.skip {
+    width: 65px;
+}
+
+.play-pause {
+    width: 65px;
+    text-align: center;
+}
+
+.play-pause:hover, .skip:hover {
+    cursor: pointer;
+}
+
+.playlist-info img {
+    width: 200px;
+}
+
 #search-bar {
     width: 350px;
     display: flex;
