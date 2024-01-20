@@ -3,7 +3,7 @@
 }
 
 .navbar a {
- color: aliceblue;   
+    color: aliceblue;
 }
 
 .playlist-info {
@@ -45,7 +45,7 @@
     position: absolute;
     bottom: 0.01px;
     width: 35vw;
-    left: 50%;   /* Center align the dropup content */
+    left: 50%; /* Center align the dropup content */
     background-color: white;
     transform: translateX(-50%); /* Adjust for exact centering of content */
     max-height: 25vh;
@@ -72,7 +72,6 @@
     background-color: lightblue;
 }
 
-
 .actions {
     margin-top: 50px;
     display: flex;
@@ -81,21 +80,61 @@
     width: 100%;
 }
 
+.play-pause,
 .skip {
     width: 65px;
+    transition: transform 0.3s ease-out; /* Apply ease-out transition for both hover and un-hover */
+    transform: scale(1); /* Default scale */
 }
 
-.play-pause {
-    width: 65px;
-    text-align: center;
-}
-
-.play-pause:hover, .skip:hover {
+.play-pause:hover,
+.skip:hover {
     cursor: pointer;
+    transition: transform 0.3s ease;
+    transform: scale(1.25);
 }
 
 .playlist-info img {
     width: 200px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.60); /* Semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1001; /* Above the overlay */
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.end-text {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.end-text b {
+    font-size: 35px;
+}
+
+.end-text {
+ font-size: 25px;   
 }
 
 #search-bar {
@@ -107,7 +146,3 @@
 #search-bar button {
     margin-left: 10px;
 }
-
-
-
-
