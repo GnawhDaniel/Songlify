@@ -8,9 +8,9 @@ import { useLocation } from "react-router-dom";
 import { Songs } from "@/lib/interfaces";
 import { Link } from "react-router-dom";
 import "./SongsPages.css";
+import { Playlist } from "@/lib/interfaces";
 
 import { returnQuery } from "@/lib/functions/returnQuery";
-import { getEmbed } from "@/lib/functions/getEmbed";
 
 function SongsPage() {
     // TO DO:
@@ -20,8 +20,9 @@ function SongsPage() {
     // let { id } = useParams();
     const location = useLocation();
     const playlist = location.state.playlist;
-    const randomNumber = location.state.randomNumber;
+    const randomNum = location.state.randomNumber;
 
+    const [randomNumber, setRandNum] = useState<number>(randomNum);
     const [guessVal, setGuessVal] = useState<string>("");
     const [songs, setSongs] = useState<Songs[]>([]);
     const [guessArray, setGuessArray] = useState<string[]>([
@@ -65,30 +66,8 @@ function SongsPage() {
             setRandomSong(selectedSong);
             setAudio(new Audio(selectedSong["preview"]));
         }
-    }, [songs]);
-    
-    // // Get Embed
-    // useEffect(() => {
-    //     const getEmbedded = async () => {
-    //         try {
-    //             if (randomSong && randomSong["url"]) {
-    //                 console.log(randomSong["url"]);
-    //                 const fetchedEmbed = await getEmbed(randomSong["url"]);
-    //                 console.log(fetchedEmbed);
+    }, [songs, randomNumber]);
 
-    //                 setEmbed(fetchedEmbed)
-    //                 console.log("here")
-    //                 console.log(embed)
-    //             }
-    //         } catch (error) {
-    //             console.error("Error fetching embed:", error);
-    //         }
-    //     };
-
-    //     getEmbedded();
-    // }, [ randomSong?.["url"] ]);
-    
-    
     // Handler Functions
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setGuessVal(event.target.value);
@@ -113,6 +92,19 @@ function SongsPage() {
         }
     }
 
+    function getWinState() {
+        if (
+            randomSong &&
+            guessVal === `${randomSong["artist"]} - ${randomSong["songName"]}`
+        ) {
+            setWin(true);
+            setEndGame(true);
+        }
+        if (counter >= allowedAttempts - 1) {
+            setEndGame(true);
+        }
+    }
+
     function handlePause() {
         if (audio && !audio.paused) {
             audio.pause();
@@ -120,29 +112,24 @@ function SongsPage() {
         }
     }
 
-    function handleSkip() {}
+    function handleSkip() {
+        guessArray[counter] = "Skipped.";
+        setGuessArray(guessArray);
+        setCounter(counter + 1);
+        getWinState();
+    }
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         if (endGame) {
-            return
+            return;
         }
         // add if statement for win or loss
         for (let i = 0; i < songs.length; i++) {
             var currSong = `${songs[i]["artist"]} - ${songs[i]["songName"]}`;
             if (currSong.includes(guessVal) && currSong === guessVal) {
-                if (
-                    randomSong &&
-                    guessVal ===
-                        `${randomSong["artist"]} - ${randomSong["songName"]}`
-                ) {
-                    setWin(true);
-                    setEndGame(true);
-                }
-                if (counter === allowedAttempts - 1) {
-                    setEndGame(true);
-                }
+                getWinState();
 
                 var arr = guessArray;
                 arr[counter] = guessVal;
@@ -151,6 +138,17 @@ function SongsPage() {
                 setGuessVal("");
             }
         }
+    }
+
+    function restartPlaylist() {
+        setRandNum(Math.random());
+        setGuessVal("");
+        setGuessArray(["", "", "", "", "", ""]);
+        setCounter(0);
+        audio?.pause()
+        setPaused(true);
+        setWin(false);
+        setEndGame(false);
     }
 
     return (
@@ -224,7 +222,9 @@ function SongsPage() {
                     />
                     <img
                         className="play-pause"
-                        onClick={() => {paused ? handlePlay() : handlePause()}}
+                        onClick={() => {
+                            paused ? handlePlay() : handlePause();
+                        }}
                         draggable="false"
                         src={paused ? PlayButton : PauseButton}
                         alt=""
@@ -232,17 +232,23 @@ function SongsPage() {
                 </div>
             </div>
             {endGame && randomSong && (
-                <div className="overlay">
+                <div className="overlay" onLoad={() => audio?.play()}>
                     <div className="popup">
                         <img src={randomSong["image"]} alt="" />
                         <div className="end-text">
                             <b>{win ? "Winner!" : "Better Luck Next Time."}</b>
-                            <i>{randomSong["songName"]} by {randomSong["artist"]}</i>
+                            <i>
+                                {randomSong["songName"]} by{" "}
+                                {randomSong["artist"]}
+                            </i>
                         </div>
-                        {/* <div dangerouslySetInnerHTML={{__html: embed}}/> */}
+                        <div className="links">
+                            <Link to={"/"}>Home</Link>
+
+                            <button onClick={restartPlaylist}>New game?</button>
+                        </div>
                     </div>
                 </div>
-                
             )}
         </>
     );
