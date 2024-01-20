@@ -18,18 +18,19 @@ export async function getSongs(query: string) {
         // console.log("data", data["items"][0]["track"]["artists"][0]["name"])
         data = data["items"]
         for (let i = 0; i < data.length; i++) {
-            // tracks.push({
-            //     artist: data[i]["track"]["artists"][0]["name"],
-            //     songName: data[i]["track"]["name"]
-            // })
-            var artist = data[i]["track"]["artists"][0]["name"];
-            var songName = data[i]["track"]["name"];
-            tracks.push(`${artist} - ${songName}`)
+            if (data[i]["track"] != null && data[i]["track"]["preview_url"] != null) {
+                tracks.push({
+                    artist: data[i]["track"]["artists"][0]["name"],
+                    songName: data[i]["track"]["name"],
+                    preview: data[i]["track"]["preview_url"]
+                })
+            }
+      
         }
     } catch (error) {
         console.error('Error:', error);
     }
-
+    // console.log(tracks)
     return tracks
 };
 
