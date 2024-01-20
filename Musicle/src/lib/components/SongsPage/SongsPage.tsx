@@ -1,9 +1,14 @@
 // import { Link, useParams } from "react-router-dom";
+import { getSongs } from "@/lib/functions/getSongs";
+import React, { useState, useEffect } from "react";
+import PlayButton from "@/assets/play-button.svg";
+import SkipButton from "@/assets/skip-icon.svg";
+import { useLocation } from "react-router-dom";
+import { Songs } from "@/lib/interfaces";
 import { Link } from "react-router-dom";
 import "./SongsPages.css";
-import { useLocation } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { getSongs } from "@/lib/functions/getSongs";
+
+import { returnQuery } from "@/lib/functions/returnQuery";
 
 function SongsPage() {
     // TO DO:
@@ -11,8 +16,11 @@ function SongsPage() {
     // allow webpage to be reached outside of search function (direct links)
 
     // let { id } = useParams();
+    const location = useLocation();
+    const playlist = location.state.playlist;
+
     const [guessVal, setGuessVal] = useState<string>("");
-    const [songs, setSongs] = useState<string[]>([]);
+    const [songs, setSongs] = useState<Songs[]>([]);
     const [guessArray, setGuessArray] = useState<string[]>([
         "",
         "",
@@ -21,11 +29,9 @@ function SongsPage() {
         "",
         "",
     ]);
+
+    const times = [1, 2, 4, 7, 11, 16, 21]
     const [counter, setCounter] = useState<number>(0);
-
-    const location = useLocation();
-    const playlist = location.state.playlist;
-
     const allowedAttempts = 6;
 
     // Fetch the songs when the component mounts or playlist.id changes
@@ -42,28 +48,30 @@ function SongsPage() {
         fetchSongs();
     }, [playlist.id]);
 
-    function returnQuery() {
-        if (guessVal === "") {
-            return [];
-        }
-        var valid = [];
-        for (let i = 0; i < songs.length; i++) {
-            var track = songs[i];
-            var trackLower = track.toLowerCase();
-            if (trackLower.includes(guessVal.toLowerCase())) {
-                valid.push(track);
-            }
-        }
 
-        return valid;
-    }
+    // function returnQuery() {
+    //     if (guessVal === "") {
+    //         return [];
+    //     }
+    //     var valid = [];
+    //     for (let i = 0; i < songs.length; i++) {
+    //         var track = `${songs[i]["artist"]} - ${songs[i]["songName"]}`;
+    //         var trackLower = track.toLowerCase();
+    //         if (trackLower.includes(guessVal.toLowerCase())) {
+    //             valid.push(track);
+    //         }
+    //     }
+    //     return valid;
+    // }
 
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setGuessVal(event.target.value);
-        returnQuery();
+        returnQuery(songs, guessVal);
     }
 
     function handleLoss() {}
+
+    // function handleWin() {}
 
     function handleSelect(song: string) {
         setGuessVal(song);
@@ -74,16 +82,22 @@ function SongsPage() {
 
         // add if statement for win or loss
 
-        if (songs.includes(guessVal)) {
-            if (counter >= allowedAttempts) {
-                handleLoss();
-            }
+        for (let i = 0; i < songs.length; i++) {
+            if (
+                `${songs[i]["artist"]} - ${songs[i]["songName"]}}`.includes(
+                    guessVal
+                )
+            ) {
+                if (counter >= allowedAttempts) {
+                    handleLoss();
+                }
 
-            var arr = guessArray;
-            arr[counter] = guessVal;
-            setGuessArray(arr);
-            setCounter(counter + 1);
-            setGuessVal("");
+                var arr = guessArray;
+                arr[counter] = guessVal;
+                setGuessArray(arr);
+                setCounter(counter + 1);
+                setGuessVal("");
+            }
         }
     }
 
@@ -94,6 +108,7 @@ function SongsPage() {
                     SonGuess
                 </Link>
             </nav>
+
             <div className="songs-page">
                 <div className="playlist-info">
                     <img src={playlist.image} alt="spotiy-playlist-image" />
@@ -110,11 +125,11 @@ function SongsPage() {
 
                 <div className="search-results">
                     <div className="dropup-content border border-2 overflow-auto">
-                        {returnQuery().map((song, _index) => (
+                        {returnQuery(songs, guessVal).map((song, index) => (
                             <div
                                 onClick={() => handleSelect(song)}
                                 className="dropup-items border border-1"
-                                id={song}
+                                id={`${index}}`}
                             >
                                 {song}
                             </div>
@@ -145,12 +160,14 @@ function SongsPage() {
                     </button>
                 </form>
 
+                <div className="progess-bar"></div>
+
                 <div className="actions">
-                    <div className="skip"></div>
-                    <div className="media"></div>
+                    <img className="skip" onClick="" draggable="false" src={SkipButton} alt="" />
+                    <img className="play-pause" onClick="" draggable="false" src={PlayButton} alt="" />
                 </div>
 
-                <div className="progess-bar"></div>
+
             </div>
         </>
     );
