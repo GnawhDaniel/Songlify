@@ -4,3 +4,8 @@ export interface Playlist {
     owner: string;
     id: string;
 }
+
+export interface Songs {
+    artist: string;
+    songName: string;
+}
