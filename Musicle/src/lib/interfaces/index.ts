@@ -8,4 +8,5 @@ export interface Playlist {
 export interface Songs {
     artist: string;
     songName: string;
+    preview: string;
 }
