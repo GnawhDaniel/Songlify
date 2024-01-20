@@ -13,9 +13,11 @@ function Search() {
     // Function to handle input change
     const handleInputChange = (event: any) => {
         setSearchQuery(event.target.value);
+        // console.log(searchQuery)
     };
 
     async function handleGetPlaylists() {
+        // console.log(searchQuery)
         const response = await getPlaylists(searchQuery);
         setPlaylists(response);
     }
