@@ -9,4 +9,6 @@ export interface Songs {
     artist: string;
     songName: string;
     preview: string;
+    image: string;
+    url: string;
 }
