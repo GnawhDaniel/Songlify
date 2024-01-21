@@ -1,10 +1,16 @@
-.nav {
+.navbar {
     margin: 0px;
+    /* justify-content: center; */
 }
 
 .navbar a {
     color: aliceblue;
+    text-decoration: none;
+    font-size: 30px;
+    padding-left: 10px;
+
 }
+
 
 .playlist-info {
     display: flex;
@@ -15,6 +21,7 @@
 
 .playlist-info img {
     margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 .songs-page {
@@ -25,6 +32,10 @@
     align-items: center;
 }
 
+.guesses {
+    margin-bottom: 25px;
+}
+
 .guess-row {
     width: 450px;
     height: 35px;
@@ -33,6 +44,12 @@
     border-width: 1px;
     margin: 15px;
     background-color: rgb(200, 200, 200);
+    display: flex;
+    align-items: center;
+}
+
+.guess-row i {
+    margin-left: 10px;
 }
 
 .search-results {
@@ -112,13 +129,14 @@
 }
 
 .popup {
+    display: flex;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
+    width: 40vw;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 1001; /* Above the overlay */
-    display: flex;
-    /* justify-content: center; */
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -126,7 +144,6 @@
     margin-left: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
 }
 
 .end-text b {
@@ -134,7 +151,26 @@
 }
 
 .end-text {
- font-size: 25px;   
+    font-size: 25px;
+    justify-content: space-between;
+    gap: 15px
+}
+
+.progress {
+    margin-top: 35px;
+    width: 40vw;
+    transform: none;
+}
+
+.progress-bar {
+    transition: linear;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+    /* margin-left: 50px; */
 }
 
 #search-bar {

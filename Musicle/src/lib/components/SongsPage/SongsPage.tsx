@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 import { Songs } from "@/lib/interfaces";
 import { Link } from "react-router-dom";
 import "./SongsPages.css";
-import { Playlist } from "@/lib/interfaces";
 
 import { returnQuery } from "@/lib/functions/returnQuery";
 
@@ -34,14 +33,16 @@ function SongsPage() {
         "",
     ]);
 
-    const times = [1, 2, 4, 7, 11, 16, 21];
+    const times = [1, 2, 4, 7, 11, 16, 30];
     const [counter, setCounter] = useState<number>(0);
     const [randomSong, setRandomSong] = useState<Songs>();
     const [audio, setAudio] = useState<HTMLAudioElement>();
     const [paused, setPaused] = useState(true);
     const [win, setWin] = useState(false);
     const [endGame, setEndGame] = useState(false);
-    // const [embed, setEmbed] = useState<string>("<div></div>");
+
+    var [progress, setProgress] = useState(0);
+
 
     const allowedAttempts = 6;
 
@@ -68,6 +69,40 @@ function SongsPage() {
         }
     }, [songs, randomNumber]);
 
+    // Progress Bar
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (audio && !audio.paused) {
+                console.log(audio.currentTime)
+                setProgress(audio.currentTime);
+            }
+        }, 15); // Check every 100 milliseconds
+
+        return () => clearInterval(interval);
+    }, [audio]);
+
+    // Pause
+    useEffect(() => {
+        console.log('a')
+        const checkTime = () => {
+            if (audio && audio.currentTime >= times[counter]) {
+                audio.pause();
+                setPaused(true);
+            }
+        };
+    
+        if (audio) {
+            audio.addEventListener('timeupdate', checkTime);
+        }
+    
+        // Cleanup function to remove the event listener
+        return () => {
+            if (audio) {
+                audio.removeEventListener('timeupdate', checkTime);
+            }
+        };
+    }, [audio, counter]); // Dependencies: audio and counter
+
     // Handler Functions
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setGuessVal(event.target.value);
@@ -84,11 +119,6 @@ function SongsPage() {
             audio.volume = 0.45;
             audio.play();
             setPaused(false);
-            setTimeout(() => {
-                audio.pause();
-                setPaused(true);
-            }, times[counter] * 1000);
-        } else {
         }
     }
 
@@ -145,7 +175,7 @@ function SongsPage() {
         setGuessVal("");
         setGuessArray(["", "", "", "", "", ""]);
         setCounter(0);
-        audio?.pause()
+        audio?.pause();
         setPaused(true);
         setWin(false);
         setEndGame(false);
@@ -168,7 +198,7 @@ function SongsPage() {
                 <div className="guesses">
                     {guessArray.map((guess, index) => (
                         <div className="guess-row" key={`guess-${index}`}>
-                            {guess}
+                            <i>{guess}</i>
                         </div>
                     ))}
                 </div>
@@ -210,7 +240,17 @@ function SongsPage() {
                     </button>
                 </form>
 
-                <div className="progess-bar"></div>
+                <div className="progress">
+                    <div
+                        className="progress-bar"
+                        role="progressbar"
+                        style={{
+                            width: `${((progress / times[5] )) * 101}% `,
+                        }}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                    ></div>
+                </div>
 
                 <div className="actions">
                     <img
@@ -243,9 +283,8 @@ function SongsPage() {
                             </i>
                         </div>
                         <div className="links">
-                            <Link to={"/"}>Home</Link>
-
-                            <button onClick={restartPlaylist}>New game?</button>
+                            <Link className="btn btn-primary" onClick={restartPlaylist} to={"/"}>Back Home?</Link>
+                            <button type="button" className="btn btn-primary" onClick={restartPlaylist}>Same Playlist?</button>
                         </div>
                     </div>
                 </div>
