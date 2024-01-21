@@ -94,7 +94,7 @@ function SongsPage() {
     // Pause
     useEffect(() => {
         const checkTime = () => {
-            console.log(counter);
+            // console.log(counter);
             if (audioRef.current && audioRef.current.currentTime >= times[counter]) {
                 audioRef.current.pause();
                 setPaused(true);

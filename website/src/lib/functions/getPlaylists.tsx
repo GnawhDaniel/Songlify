@@ -11,7 +11,7 @@ export async function getPlaylists(query: string) {
     if (query.includes("https://open.spotify.com/playlist")){
         const regex = /playlist\/([a-zA-Z0-9]+)(?:\?|$)/;
         const matches = query.match(regex);
-        console.log("test", matches)
+        // console.log("test", matches)
         if (!matches){
             return []
         }
