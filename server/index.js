@@ -15,6 +15,38 @@ token.retrieveNewToken()
 
 app.use(cors());
 
+app.get("/auth/getSinglePlaylist", (req, res) => {
+    if (token.isTokenExpired()) {
+        token.retrieveNewToken()
+    }
+
+    let playlist = req.query.playlist;
+    let encodedPlaylist = encodeURIComponent(playlist);
+    const fields = "fields=owner.display_name%2Cimages%2Cname%2Cname%2Cid" 
+    let spotifyURL = `https://api.spotify.com/v1/playlists/${encodedPlaylist}?${fields}`;
+
+    fetch(spotifyURL, {
+        method: "GET",
+        headers: {
+            'Authorization': `Bearer ${token.getAccessToken()}`,
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Process and send back the data
+        console.log("200: Returned Playlists")
+        res.json(data);
+    })
+    .catch(error => {
+        // Handle any errors
+        if (error.status === 401) {
+            console.log("Retrying due to error, attempting to refresh token")
+
+        }
+    });
+
+})
 
 app.get('/auth/getPlaylists', (req, res) => {
     // Check if token needs to refreshed
