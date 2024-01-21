@@ -1,13 +1,13 @@
 import { Playlist } from "@lib/interfaces";
 import "./List.css";
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 interface Iprops {
     val: Playlist[];
 }
 
 function List(props: Iprops) {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     let items = props.val;
     console.log(items);

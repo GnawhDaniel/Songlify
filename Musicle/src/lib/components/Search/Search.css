@@ -10,9 +10,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 100px auto;
+    margin: 100px 0;
+    text-align: center;
 }
 
-.search {
-    text-align: center;
+.search h1 {
+    margin-bottom: 25px;
 }
