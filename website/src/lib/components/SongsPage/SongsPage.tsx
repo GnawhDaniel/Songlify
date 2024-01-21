@@ -1,6 +1,6 @@
 // import { Link, useParams } from "react-router-dom";
 import { getSongs } from "@/lib/functions/getSongs";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PlayButton from "@/assets/play-button.svg";
 import SkipButton from "@/assets/skip-icon.svg";
 import PauseButton from "@/assets/pause-button.svg";
@@ -36,15 +36,25 @@ function SongsPage() {
     const times = [1, 2, 4, 7, 11, 16, 30];
     const [counter, setCounter] = useState<number>(0);
     const [randomSong, setRandomSong] = useState<Songs>();
-    const [audio, setAudio] = useState<HTMLAudioElement>();
+    const audioRef = useRef<HTMLAudioElement | null>(null); // Ref for the audio element
     const [paused, setPaused] = useState(true);
     const [win, setWin] = useState(false);
     const [endGame, setEndGame] = useState(false);
 
     var [progress, setProgress] = useState(0);
 
-
     const allowedAttempts = 6;
+
+    // useEffect for cleaning up the audio on route change or component unmount
+    useEffect(() => {
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.src = ''; // Release the audio resources
+                audioRef.current = null;
+            }
+        };
+    }, [location]); // Dependency on location to detect route change
 
     // Fetch the songs when the component mounts or playlist.id changes
     useEffect(() => {
@@ -65,48 +75,48 @@ function SongsPage() {
         if (songs.length > 0) {
             const selectedSong = songs[Math.floor(randomNumber * songs.length)];
             setRandomSong(selectedSong);
-            setAudio(new Audio(selectedSong["preview"]));
+            audioRef.current = new Audio(selectedSong["preview"]);
         }
     }, [songs, randomNumber]);
 
     // Progress Bar
     useEffect(() => {
         const interval = setInterval(() => {
-            if (audio && !audio.paused) {
+            if (audioRef.current && !audioRef.current.paused) {
                 // console.log(audio.currentTime)
-                setProgress(audio.currentTime);
+                setProgress(audioRef.current.currentTime);
             }
         }, 15); // Check every 100 milliseconds
 
         return () => clearInterval(interval);
-    }, [audio]);
+    }, [audioRef]);
 
     // Pause
     useEffect(() => {
         const checkTime = () => {
-            console.log(counter)
-            if (audio && audio.currentTime >= times[counter]) {
-                audio.pause();
+            console.log(counter);
+            if (audioRef.current && audioRef.current.currentTime >= times[counter]) {
+                audioRef.current.pause();
                 setPaused(true);
             }
         };
-    
-        if (audio) {
-            audio.addEventListener('timeupdate', checkTime);
+
+        if (audioRef.current) {
+            audioRef.current.addEventListener("timeupdate", checkTime);
         }
-    
+
         // Cleanup function to remove the event listener
         return () => {
-            if (audio) {
-                audio.removeEventListener('timeupdate', checkTime);
+            if (audioRef.current) {
+                audioRef.current.removeEventListener("timeupdate", checkTime);
             }
         };
-    }, [audio, counter]); // Dependencies: audio and counter
+    }, [audioRef.current, counter]); // Dependencies: audio and counter
 
     // Handler Functions
     function handleEndMusic() {
-        setCounter(times.length-1);
-        audio?.play()
+        setCounter(times.length - 1);
+        audioRef.current?.play();
     }
 
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
@@ -119,10 +129,10 @@ function SongsPage() {
     }
 
     function handlePlay() {
-        if (audio && audio.paused) {
-            audio.currentTime = 0;
-            audio.volume = 0.45;
-            audio.play();
+        if (audioRef.current && audioRef.current.paused) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.volume = 0.45;
+            audioRef.current.play();
             setPaused(false);
         }
     }
@@ -141,8 +151,8 @@ function SongsPage() {
     }
 
     function handlePause() {
-        if (audio && !audio.paused) {
-            audio.pause();
+        if (audioRef.current && !audioRef.current.paused) {
+            audioRef.current.pause();
             setPaused(true);
         }
     }
@@ -180,7 +190,7 @@ function SongsPage() {
         setGuessVal("");
         setGuessArray(["", "", "", "", "", ""]);
         setCounter(0);
-        audio?.pause();
+        audioRef.current?.pause();
         setPaused(true);
         setWin(false);
         setEndGame(false);
@@ -250,7 +260,7 @@ function SongsPage() {
                         className="progress-bar"
                         role="progressbar"
                         style={{
-                            width: `${((progress / times[5] )) * 101}% `,
+                            width: `${(progress / times[5]) * 101}% `,
                         }}
                         aria-valuemin={0}
                         aria-valuemax={100}
@@ -288,8 +298,20 @@ function SongsPage() {
                             </i>
                         </div>
                         <div className="links">
-                            <Link className="btn btn-primary" onClick={restartPlaylist} to={"/"}>Back Home?</Link>
-                            <button type="button" className="btn btn-primary" onClick={restartPlaylist}>Same Playlist?</button>
+                            <Link
+                                className="btn btn-primary"
+                                onClick={restartPlaylist}
+                                to={"/"}
+                            >
+                                Back Home?
+                            </Link>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={restartPlaylist}
+                            >
+                                Same Playlist?
+                            </button>
                         </div>
                     </div>
                 </div>
