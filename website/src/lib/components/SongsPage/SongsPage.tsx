@@ -73,7 +73,7 @@ function SongsPage() {
     useEffect(() => {
         const interval = setInterval(() => {
             if (audio && !audio.paused) {
-                console.log(audio.currentTime)
+                // console.log(audio.currentTime)
                 setProgress(audio.currentTime);
             }
         }, 15); // Check every 100 milliseconds
@@ -83,8 +83,8 @@ function SongsPage() {
 
     // Pause
     useEffect(() => {
-        console.log('a')
         const checkTime = () => {
+            console.log(counter)
             if (audio && audio.currentTime >= times[counter]) {
                 audio.pause();
                 setPaused(true);
@@ -104,6 +104,11 @@ function SongsPage() {
     }, [audio, counter]); // Dependencies: audio and counter
 
     // Handler Functions
+    function handleEndMusic() {
+        setCounter(times.length-1);
+        audio?.play()
+    }
+
     function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setGuessVal(event.target.value);
         returnQuery(songs, guessVal);
@@ -185,7 +190,7 @@ function SongsPage() {
         <>
             <nav className="navbar navbar-dark bg-dark">
                 <Link className="m-1" to="/">
-                    SonGuess
+                    Songlify
                 </Link>
             </nav>
 
@@ -272,7 +277,7 @@ function SongsPage() {
                 </div>
             </div>
             {endGame && randomSong && (
-                <div className="overlay" onLoad={() => audio?.play()}>
+                <div className="overlay" onLoad={handleEndMusic}>
                     <div className="popup">
                         <img src={randomSong["image"]} alt="" />
                         <div className="end-text">

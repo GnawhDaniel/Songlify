@@ -34,7 +34,7 @@ function Search() {
         <>
             <div className="search">
                 <div className="search-bar">
-                    <h1>SonGuess</h1>
+                    <h1>Songlify</h1>
                     <input
                         onChange={handleInputChange}
                         className="form-control mr-sm-2 input-large"
