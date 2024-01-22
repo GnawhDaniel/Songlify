@@ -20,6 +20,8 @@ Welcome to Songlify, an interactive web-game that challenges you to guess your f
 - [ ] **Expand Playlist Results**: Increase the number of playlist results beyond the current cap of 50 for a wider selection.
 - [ ] **User Score System**: Implement a personal scoring system to track user performance over time.
 - [ ] **Enhanced Aesthetics**: Make the website look prettier, it's ugly ㅠㅠ.
+- [ ] **Mobile**: Change CSS for mobile sites.
+
 
 
 
