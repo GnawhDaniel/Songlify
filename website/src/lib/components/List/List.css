@@ -35,9 +35,9 @@ img {
     width: 35vw;
     height: 60vh;
 
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for Firefox */
-    overflow-y: scroll;
+    /* -ms-overflow-style: none;
+    scrollbar-width: none; 
+    overflow-y: scroll; */
 }
 
 .playlist::-webkit-scrollbar {

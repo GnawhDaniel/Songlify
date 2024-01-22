@@ -1,3 +1,7 @@
+body {
+    background-color: lightgray;
+}
+
 .navbar {
     margin: 0px;
     /* justify-content: center; */
@@ -25,8 +29,10 @@
     margin-bottom: 2vh;
 }
 
+
+
 .songs-page {
-    background-color: lightgray;
+    /* background-color: lightgray; */
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -171,7 +177,7 @@
 }
 
 #search-bar {
-    width: 350px;
+    width: 35vw;
     display: flex;
     flex-direction: row;
 }
@@ -232,4 +238,19 @@
         margin-bottom: 2vh;
     }
 
+    html, body {
+        height: 100vh;
+
+        overflow: auto;
+    }
 }
+
+@media screen and (max-height:686px) {
+    html, body {
+        height: 100vh;
+
+        overflow: auto;
+    }
+}
+
+
