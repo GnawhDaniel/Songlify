@@ -221,6 +221,10 @@
     }
 }
 
+html, body {
+    overflow: hidden;
+}
+
 @media screen and (max-width: 450px) and (min-height: 700px) {
 
     .playlist-info {

@@ -1,5 +1,5 @@
 img {
-    width: 4vw;
+    width: 5vw;
     height: auto;
     border-radius: 10px;
 }
@@ -8,7 +8,7 @@ img {
     /* This is technically <Link> */
     padding-left: 0px;
     display: flex;
-    height: 4vw;
+    height: 5vw;
     padding-left: 0;
     /* margin: 0 0 10px 0; */
 
@@ -50,11 +50,11 @@ img {
 }
 
 .name{
-    font-size: 1.5vw;
+    font-size: 1vw;
 }
 
 .owner {
-    font-size: 1vw;
+    font-size: 0.8vw;
 }
 
 @media screen and (max-width: 450px) and (min-height: 700px) {
