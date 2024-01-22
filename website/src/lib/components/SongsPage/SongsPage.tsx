@@ -50,7 +50,7 @@ function SongsPage() {
         return () => {
             if (audioRef.current) {
                 audioRef.current.pause();
-                audioRef.current.src = ''; // Release the audio resources
+                audioRef.current.src = ""; // Release the audio resources
                 audioRef.current = null;
             }
         };
@@ -95,7 +95,10 @@ function SongsPage() {
     useEffect(() => {
         const checkTime = () => {
             // console.log(counter);
-            if (audioRef.current && audioRef.current.currentTime >= times[counter]) {
+            if (
+                audioRef.current &&
+                audioRef.current.currentTime >= times[counter]
+            ) {
                 audioRef.current.pause();
                 setPaused(true);
             }
@@ -197,15 +200,13 @@ function SongsPage() {
     }
 
     return (
-        <>  
-            <div></div>
-            <nav className="navbar navbar-dark bg-dark">
-                <Link className="m-1" to="/">
-                    Songlify
-                </Link>
-            </nav>
-
-            <div className="songs-page">
+        <>
+            <div className=" master songs-page">
+                <nav className="navbar navbar-dark bg-dark">
+                    <Link className="m-1" to="/">
+                        Songlify
+                    </Link>
+                </nav>
                 <div className="playlist-info">
                     <img src={playlist.image} alt="spotify-playlist-image" />
                     <h2>{playlist.name}</h2>
@@ -219,25 +220,25 @@ function SongsPage() {
                     ))}
                 </div>
 
-                <div className="search-results">
-                    <div className="dropup-content border border-2 overflow-auto">
-                        {returnQuery(songs, guessVal).map((song, index) => (
-                            <div
-                                onClick={() => handleSelect(song)}
-                                className="dropup-items border border-1"
-                                id={`${index}}`}
-                            >
-                                {song}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
                 <form
                     onSubmit={handleSubmit}
                     id="search-bar"
                     className="form-group"
                 >
+                    <div className="search-results">
+                        <div className="dropup-content border border-2 overflow-auto">
+                            {returnQuery(songs, guessVal).map((song, index) => (
+                                <div
+                                    onClick={() => handleSelect(song)}
+                                    className="dropup-items border border-1"
+                                    id={`${index}}`}
+                                >
+                                    {song}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
                     <input
                         autoComplete="off"
                         onChange={handleSearch}
@@ -247,45 +248,41 @@ function SongsPage() {
                         placeholder="Guess it. Search for the song."
                         value={guessVal ? guessVal : ""}
                     />
-                    <small
-                        id="emailHelp"
-                        className="form-text text-muted"
-                    ></small>
-                    <button type="submit" className="btn btn-primary">
-                        Submit
-                    </button>
+
+                    <div className="progress">
+                        <div
+                            className="progress-bar"
+                            role="progressbar"
+                            style={{
+                                width: `${(progress / times[5]) * 101}% `,
+                            }}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                        ></div>
+                    </div>
+                    
+                    <div className="actions">
+                        <img
+                            className="skip"
+                            onClick={() => handleSkip()}
+                            draggable="false"
+                            src={SkipButton}
+                            alt=""
+                        />
+                        <button type="submit" className="btn btn-primary">
+                            Submit
+                        </button>
+                        <img
+                            className="play-pause"
+                            onClick={() => {
+                                paused ? handlePlay() : handlePause();
+                            }}
+                            draggable="false"
+                            src={paused ? PlayButton : PauseButton}
+                            alt=""
+                        />
+                    </div>
                 </form>
-
-                <div className="progress">
-                    <div
-                        className="progress-bar"
-                        role="progressbar"
-                        style={{
-                            width: `${(progress / times[5]) * 101}% `,
-                        }}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                    ></div>
-                </div>
-
-                <div className="actions">
-                    <img
-                        className="skip"
-                        onClick={() => handleSkip()}
-                        draggable="false"
-                        src={SkipButton}
-                        alt=""
-                    />
-                    <img
-                        className="play-pause"
-                        onClick={() => {
-                            paused ? handlePlay() : handlePause();
-                        }}
-                        draggable="false"
-                        src={paused ? PlayButton : PauseButton}
-                        alt=""
-                    />
-                </div>
             </div>
             {endGame && randomSong && (
                 <div className="overlay" onLoad={handleEndMusic}>
