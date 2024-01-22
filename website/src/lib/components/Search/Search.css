@@ -17,3 +17,19 @@
 .search h1 {
     margin-bottom: 25px;
 }
+
+@media screen and (max-width: 450px) and (min-height: 700px) {
+    .input-large {
+        width: 80vw;
+        margin: auto;
+        margin-bottom: 25px;
+    }
+}
+
+@media screen and (max-height:686px) {
+    .input-large {
+        width: 80vw;
+        margin: auto;
+        margin-bottom: 25px;
+    }
+}
