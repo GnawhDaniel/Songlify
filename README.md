@@ -29,7 +29,7 @@ Welcome to Songlify, an interactive web-game that challenges you to guess your f
 If you have ideas on how to improve the game or want to report a bug, please feel free to reach out or open an issue.
 
 ## Credits
-A special thanks to Tom Howland, the original creator of Heardlify. His innovative work and creativity have been a major inspiration for Songlify, and this project is largely based on his original game. Please check out the original [here](https://heardlify.app/). <sub><sup>but before you do please play me version first :)</sup></sub>
+A special thanks to Tom Howland, the original creator of Heardlify. His innovative work and creativity have been a major inspiration for Songlify, and this project is largely based on his original game. Please check out the original [here](https://heardlify.app/). <sub><sup>but before you do please play my version :)</sup></sub>
 
 ## Contact
 For any inquiries or support issues, please contact me at [danielhwang02@gmail.com].
