@@ -197,7 +197,8 @@ function SongsPage() {
     }
 
     return (
-        <>
+        <>  
+            <div></div>
             <nav className="navbar navbar-dark bg-dark">
                 <Link className="m-1" to="/">
                     Songlify
