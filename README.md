@@ -15,6 +15,7 @@ Welcome to Songlify, an interactive web-game that challenges you to guess your f
 4. **Limited Chances**: You have 6 attempts to guess the song correctly. Can you ace it in fewer tries?
 
 ## Planned To-Do's
+- [ ] **Modularize**: Some files are HUGE. Separate code into more functions.
 - [ ] **Expand Playlist Results**: Increase the number of playlist results beyond the current cap of 50 for a wider selection.
 - [ ] **User Score System**: Implement a personal scoring system to track user performance over time.
 - [ ] **Enhanced Aesthetics**: Make the website look prettier, it's ugly ㅠㅠ.
@@ -28,7 +29,7 @@ If you have ideas on how to improve the game or want to report a bug, please fee
 A special thanks to Tom Howland, the original creator of Heardlify. His innovative work and creativity have been a major inspiration for Songlify, and this project is largely based on his original game. Please check out the original [here](https://heardlify.app/). <sub><sup>but before you do please play me version first :)</sup></sub>
 
 ## Contact
-For any inquiries or support issues, please contact us at [your contact email].
+For any inquiries or support issues, please contact me at [danielhwang02@gmail.com].
 
 ## Enjoy the Game!
-Ready to test your music knowledge? Head over to Songlify and start playing!
+Ready to test your music knowledge? Head over to [Songlify](https://songlify.hwangapp.com/) and start playing!
