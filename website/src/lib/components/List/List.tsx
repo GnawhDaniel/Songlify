@@ -22,8 +22,8 @@ function List(props: Iprops) {
                         <Link to={`/playlist/${item.name.trim().replace(/\//g, '%20')}`} state={{"playlist": item, "randomNumber": Math.random()}}>
                             <img src={item.image} alt="" />
                             <div className="inner-row">
-                                <div className="name fs-5">{item.name}</div>
-                                <div className="owner fs-7">{item.owner}</div>
+                                <div className="name">{item.name}</div>
+                                <div className="owner">{item.owner}</div>
                             </div>
                         </Link>
                     </div>

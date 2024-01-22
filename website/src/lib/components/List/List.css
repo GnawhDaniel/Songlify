@@ -1,5 +1,5 @@
 img {
-    width: 15%;
+    width: 4vw;
     height: auto;
     border-radius: 10px;
 }
@@ -8,12 +8,12 @@ img {
     /* This is technically <Link> */
     padding-left: 0px;
     display: flex;
-
+    height: 4vw;
     padding-left: 0;
     /* margin: 0 0 10px 0; */
 
     text-align: left;
-    background-color: lightgray;
+    background-color: white;
     border-radius: 10px;
 
     color: black;
@@ -46,5 +46,21 @@ img {
 
 .inner-row {
     margin-left: 20px;
-    font-size: 15px
+    /* font-size: 15px */
+}
+
+.name{
+    font-size: 1.5vw;
+}
+
+.owner {
+    font-size: 1vw;
+}
+
+@media screen and (max-width: 450px) and (min-height: 700px) {
+
+}
+
+@media screen and (max-height:686px) {
+
 }
