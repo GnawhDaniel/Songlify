@@ -25,7 +25,7 @@ function Search() {
     useEffect(() => {
         const timer = setTimeout(() => {
             handleGetPlaylists();
-        }, 1000);
+        }, 700);
 
         return () => clearTimeout(timer);
     }, [searchQuery]);

@@ -76,7 +76,7 @@ html, body {
 
 /* Search results styling */
 .search-results .dropup-content {
-    max-height: 15vw;
+    max-height: 40vh;
     width: 100%;
 }
 
@@ -235,9 +235,6 @@ html, body {
         font-size: 1.5rem;
     }
 }
-
-
-
 
 /* Media queries for smaller screens */
 @media (max-width: 600px) {

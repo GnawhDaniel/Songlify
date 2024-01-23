@@ -231,7 +231,7 @@ function SongsPage() {
                                 <div
                                     onClick={() => handleSelect(song)}
                                     className="dropup-items border border-1"
-                                    id={`${index}}`}
+                                    key={`${index}}`}
                                 >
                                     {song}
                                 </div>
