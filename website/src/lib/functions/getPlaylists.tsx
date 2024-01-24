@@ -30,7 +30,7 @@ export async function getPlaylists(query: string) {
 
     }
     else {
-        spotify = `${endpoint}/auth/getPlaylists?name=${encodedQuery}`;
+        spotify = `${endpoint}/getPlaylists?name=${encodedQuery}`;
         try {
             const response = await fetch(spotify);
             let data = await response.json();
