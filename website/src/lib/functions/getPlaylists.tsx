@@ -16,7 +16,7 @@ export async function getPlaylists(query: string) {
             return []
         }
 
-        spotify = `${endpoint}/getSinglePlaylist?playlist=${encodeURIComponent(matches[1])}`;
+        spotify = `${endpoint}/auth/getSinglePlaylist?playlist=${encodeURIComponent(matches[1])}`;
         try {
             const response = await fetch(spotify);
             let data = await response.json();
@@ -27,19 +27,15 @@ export async function getPlaylists(query: string) {
                 id: data["id"]
             })
         } catch (error) {}
-        
+
     }
     else {
-        spotify = `${endpoint}/getPlaylists?name=${encodedQuery}`;
+        spotify = `${endpoint}/auth/getPlaylists?name=${encodedQuery}`;
         try {
             const response = await fetch(spotify);
-            
-            console.log(response)
             let data = await response.json();
-            data = data['tracks']['items']
-            console.log(data)
+            data = data['playlists']['items']
             for (let i = 0; i < data.length; i++) {
-                console.log(data[i])
                 playlists.push({
                     name: data[i]["name"],
                     image: data[i]["images"][0]["url"],
@@ -54,7 +50,7 @@ export async function getPlaylists(query: string) {
 
     
 
-    console.log(playlists)
+
 
     return playlists
 };
