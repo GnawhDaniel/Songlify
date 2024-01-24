@@ -27,14 +27,16 @@ export async function getPlaylists(query: string) {
                 id: data["id"]
             })
         } catch (error) {}
-
+        
     }
     else {
         spotify = `${endpoint}/getPlaylists?name=${encodedQuery}`;
         try {
             const response = await fetch(spotify);
+            
+            console.log(response)
             let data = await response.json();
-            data = data['playlists']['items']
+            data = data['tracks']['items']
             for (let i = 0; i < data.length; i++) {
                 playlists.push({
                     name: data[i]["name"],
@@ -50,7 +52,7 @@ export async function getPlaylists(query: string) {
 
     
 
-
+    console.log(playlists)
 
     return playlists
 };
