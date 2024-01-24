@@ -37,7 +37,9 @@ export async function getPlaylists(query: string) {
             console.log(response)
             let data = await response.json();
             data = data['tracks']['items']
+            console.log(data)
             for (let i = 0; i < data.length; i++) {
+                console.log(data[i])
                 playlists.push({
                     name: data[i]["name"],
                     image: data[i]["images"][0]["url"],
