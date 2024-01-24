@@ -9,7 +9,7 @@ export async function getSongs(query: string) {
 
     let encodedQuery = encodeURIComponent(query);
     const endpoint = import.meta.env.VITE_SERVER;
-    const spotify = `${endpoint}/auth/getTracks?name=${encodedQuery}`
+    const spotify = `${endpoint}/getTracks?name=${encodedQuery}`
     let tracks = [];
 
     try {

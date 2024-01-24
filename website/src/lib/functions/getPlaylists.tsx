@@ -16,7 +16,7 @@ export async function getPlaylists(query: string) {
             return []
         }
 
-        spotify = `${endpoint}/auth/getSinglePlaylist?playlist=${encodeURIComponent(matches[1])}`;
+        spotify = `${endpoint}/getSinglePlaylist?playlist=${encodeURIComponent(matches[1])}`;
         try {
             const response = await fetch(spotify);
             let data = await response.json();
