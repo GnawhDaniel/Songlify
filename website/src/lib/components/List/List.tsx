@@ -11,7 +11,7 @@ function List(props: Iprops) {
 
     let items = props.val;
     if (items.length === 0) {
-        return <div>Type in a Spotify playlist or link</div>;
+        return null;
     }
 
     return (

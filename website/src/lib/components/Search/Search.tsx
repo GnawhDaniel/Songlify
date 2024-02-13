@@ -9,6 +9,8 @@ import { Playlist } from '@/lib/interfaces'; // Import the interface
 function Search() {
     const [searchQuery, setSearchQuery] = useState("");
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
+    const [isLoading, setIsLoading] = useState(false); // State to manage loading indicator
+
 
     // Function to handle input change
     const handleInputChange = (event: any) => {
@@ -18,14 +20,21 @@ function Search() {
 
     async function handleGetPlaylists() {
         // console.log(searchQuery)
-        const response = await getPlaylists(searchQuery);
-        setPlaylists(response);
+        setIsLoading(true); // Show loading indicator
+        try {
+            const response = await getPlaylists(searchQuery);
+            setPlaylists(response);
+            setIsLoading(false); // Hide loading indicator in case of error
+        }
+        catch (error) {
+            console.error("Error fetching playlists", error);
+        }
     }
 
     useEffect(() => {
         const timer = setTimeout(() => {
             handleGetPlaylists();
-        }, 700);
+        }, 100);
 
         return () => clearTimeout(timer);
     }, [searchQuery]);
@@ -42,6 +51,8 @@ function Search() {
                         placeholder="Search"
                         aria-label="Search"
                     />
+                    {playlists.length === 0 ? <div>Type in a Spotify playlist or link</div>: null}
+                    {isLoading ? <div>Loading...</div> : null}
                     <List val={playlists}/>
                 </div>
             </div>

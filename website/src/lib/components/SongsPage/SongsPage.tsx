@@ -21,6 +21,7 @@ function SongsPage() {
     const playlist = location.state.playlist;
     const randomNum = location.state.randomNumber;
 
+    const [isLoading, setIsLoading] = useState(true); // State to manage loading indicator
     const [randomNumber, setRandNum] = useState<number>(randomNum);
     const [guessVal, setGuessVal] = useState<string>("");
     const [songs, setSongs] = useState<Songs[]>([]);
@@ -59,9 +60,11 @@ function SongsPage() {
     // Fetch the songs when the component mounts or playlist.id changes
     useEffect(() => {
         const fetchSongs = async () => {
+            setIsLoading(true);
             try {
                 const fetchedSongs = await getSongs(playlist.id);
                 setSongs(fetchedSongs);
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching songs:", error);
             }
@@ -245,7 +248,7 @@ function SongsPage() {
                         type="guess"
                         id="user-guess"
                         className="form-control"
-                        placeholder="Guess it. Search for the song."
+                        placeholder={isLoading ? "Loading..." : "Guess it. Search for the song."}
                         value={guessVal ? guessVal : ""}
                     />
 

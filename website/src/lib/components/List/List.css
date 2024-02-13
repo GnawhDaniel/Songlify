@@ -26,6 +26,10 @@ img {
     margin: 0px 5px 5px 5px;
 }
 
+.row a {
+    overflow: hidden;
+}
+
 .row a:hover{
     background-color: lightblue;
     color: inherit;
