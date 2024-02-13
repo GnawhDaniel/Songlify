@@ -32,6 +32,7 @@ function Search() {
 
     return (
         <>
+            <div className="bg"></div>
             <div className="search">
                 <div className="search-bar">
                     <h1>Songlify</h1>
@@ -42,8 +43,8 @@ function Search() {
                         placeholder="Search"
                         aria-label="Search"
                     />
+                    <List val={playlists}/>
                 </div>
-                <List val={playlists}/>
             </div>
         </>
     );
