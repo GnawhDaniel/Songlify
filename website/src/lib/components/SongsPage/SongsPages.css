@@ -9,19 +9,26 @@ html, body {
 /* General styling */
 .master {
     min-height: 100vh; /* Sets minimum height to full viewport height */
+    max-height: 100vh;
     display: flex;
     flex-direction: column; /* Ensures content is laid out top to bottom */
     justify-content: space-between;
+    background-color: #404040;
+    background-image: url("/bg2.jpg");
+    background-position: center;
+    background-size: cover;
+
 }
 
 
 /* Navigation bar styling */
 .navbar {
     padding: 0.5vw;
-    background-color: #343a40;
+    background-color: #111111;
 }
 
 .navbar a {
+    font-family: "Protest Strike", sans-serif;
     color: white;
     text-decoration: none;
     font-size: 1.5rem;
@@ -48,8 +55,13 @@ html, body {
 
 .playlist-info h2 {
     margin: 0;
-    color: #343a40;
+    color: white;
     font-size: 1.5vw;
+    font-family: "Rubik Distressed", sans-serif;
+}
+
+#user-guess {
+    font-family: "Protest Strike", sans-serif;
 }
 
 .guesses {
@@ -60,7 +72,7 @@ html, body {
 }
 
 .guess-row {
-    background-color: #f8f9fa;
+    background-color: #7a7a7a;
     padding: 0.5vw;
     margin-bottom: 1.5vh;
     border-radius: 4px;
@@ -70,8 +82,13 @@ html, body {
     align-items: center;
     margin-left: 1vw;
     margin-right: 1vw;
+    opacity: 0.9;
 }
 
+.guess-row i {
+    font-family: "Protest Strike", sans-serif;
+    color: white;
+}
 
 
 /* Search results styling */
@@ -166,7 +183,7 @@ html, body {
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;;
 }
 
 .popup {
@@ -174,6 +191,7 @@ html, body {
     padding: 2vw;
     border-radius: 8px;
     text-align: center;
+    /* width: 25vw; */
 }
 
 .popup img {
@@ -190,7 +208,8 @@ html, body {
 .links {
     margin-top: 2vw;
     display: flex;
-    justify-content: space-around; 
+    justify-content: space-around;
+    gap: 15px;
 }
 
 .btn-primary {

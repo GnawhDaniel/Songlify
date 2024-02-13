@@ -12,15 +12,14 @@
     align-items: center;
     padding: 100px 0;
     text-align: center;
-    height: 100vh;
-    background-color: #444140;
+    min-height: 100vh; /* Sets minimum height to full viewport height */
+    max-height: 100vh;  /* Sets maximum height to full viewport height */
     /* background-image: url("bg.png"); */
     background-image: url("/ts.png");
-    background-position: cover;
+    background-position: center;
     background-size: cover;
     color: white;
-
-    font-family: "Protest Revolution", sans-serif;
+    font-family: "Protest Strike", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -33,8 +32,9 @@
 }
 
 .search h1 {
-    font-family: "Rubik Glitch Pop", sans-serif;
+    font-family: "Rubik Distressed", sans-serif;
     margin-bottom: 25px;
+    font-size: 100px;
 }
 
 @media screen and (max-width: 450px) and (min-height: 700px) {
@@ -43,6 +43,10 @@
         margin: auto;
         margin-bottom: 25px;
     }
+
+    .search h1 {
+        font-size: 50px;
+    }
 }
 
 @media screen and (max-height:686px) {
@@ -50,5 +54,8 @@
         width: 80vw;
         margin: auto;
         margin-bottom: 25px;
+    }
+    .search h1 {
+        font-size: 50px;
     }
 }

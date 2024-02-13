@@ -201,7 +201,7 @@ function SongsPage() {
 
     return (
         <>
-            <div className=" master songs-page">
+            <div className="master songs-page">
                 <nav className="navbar navbar-dark bg-dark">
                     <Link className="m-1" to="/">
                         Songlify
@@ -301,7 +301,7 @@ function SongsPage() {
                                 onClick={restartPlaylist}
                                 to={"/"}
                             >
-                                Back Home?
+                                New Playlist?
                             </Link>
                             <button
                                 type="button"
