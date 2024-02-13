@@ -32,7 +32,6 @@ function Search() {
 
     return (
         <>
-            <div className="bg"></div>
             <div className="search">
                 <div className="search-bar">
                     <h1>Songlify</h1>

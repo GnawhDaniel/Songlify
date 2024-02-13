@@ -15,7 +15,7 @@
     height: 100vh;
     background-color: #444140;
     /* background-image: url("bg.png"); */
-    background-image: url("ts.png");
+    background-image: url("/ts.png");
     background-position: cover;
     background-size: cover;
     color: white;
@@ -33,6 +33,7 @@
 }
 
 .search h1 {
+    font-family: "Rubik Glitch Pop", sans-serif;
     margin-bottom: 25px;
 }
 
